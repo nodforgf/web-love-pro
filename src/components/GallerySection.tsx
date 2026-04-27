@@ -36,9 +36,10 @@ function PhotoCard({ photoUrl, idx, style, totalPhotos }: PhotoCardProps) {
       style={{
         top: style.top,
         left: style.left,
-        width: "20rem", // w-80
-        height: "25rem", // h-[400px]
-        perspective: "1000px", // จำเป็นสำหรับ 3D effect
+        width: "45vw", // ✅ ใช้ vw เลยครับ จะได้แปรผันตามหน้าจอมือถือเป๊ะๆ
+        maxWidth: "200px", // ✅ ล็อกไว้ไม่ให้ใหญ่เกินไปในจอคอม
+        aspectRatio: "3/4",
+        perspective: "1000px",
       }}
       // อนิเมชั่นกระจายตัวออกมาจากกลางจอแบบนุ่มนวล
       initial={{ opacity: 0, scale: 0, x: "-50%", y: "300px", left: "50%", rotate: 0 }}
@@ -112,15 +113,15 @@ export default function GallerySection({ onNext }: GallerySectionProps) {
     "/photo5.jpg", "/photo6.jpg", "/photo7.jpg", "/photo8.jpg"
   ];
 
-  const scatteredStyles = [
-    { top: '5%', left: '15%', rotate: -8 },
-    { top: '8%', left: '65%', rotate: 12 },
-    { top: '25%', left: '40%', rotate: -15 },
-    { top: '35%', left: '5%', rotate: 10 },
-    { top: '45%', left: '60%', rotate: -5 },
-    { top: '60%', left: '20%', rotate: 18 },
-    { top: '75%', left: '55%', rotate: -10 },
-    { top: '85%', left: '10%', rotate: 5 },
+    const scatteredStyles = [
+    { top: '5%',  left: '5vw',  rotate: -8 },
+    { top: '15%', left: '40vw', rotate: 12 },
+    { top: '28%', left: '10vw', rotate: -15 },
+    { top: '40%', left: '35vw', rotate: 10 },
+    { top: '55%', left: '5vw',  rotate: -5 },
+    { top: '68%', left: '45vw', rotate: 18 },
+    { top: '80%', left: '10vw', rotate: -10 },
+    { top: '90%', left: '30vw', rotate: 5 },
   ];
 
   return (
