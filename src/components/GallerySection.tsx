@@ -75,7 +75,7 @@ function PhotoCard({ photoUrl, idx, style, totalPhotos }: PhotoCardProps) {
 
           {/* สติกเกอร์บอกให้กด (จางหายเมื่อ Flip) */}
           <motion.div
-            animate={{ opacity: isFlipped ? 0 : [0.5, 1, 0.5] }} 
+            animate={{ opacity: isFlipped ? 0 : [0.5, 1, 0.5] }}
             transition={{ repeat: Infinity, duration: 2 }}
             className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-[15deg] pointer-events-none"
           >
@@ -86,8 +86,8 @@ function PhotoCard({ photoUrl, idx, style, totalPhotos }: PhotoCardProps) {
         </div>
 
         {/* --- หน้าหลัง (Back): ข้อความ --- */}
-        <div 
-          className="absolute inset-3 bottom-12 flex flex-col items-center justify-center p-6 bg-[#fdfcf0] rounded-sm" 
+        <div
+          className="absolute inset-3 bottom-12 flex flex-col items-center justify-center p-6 bg-[#fdfcf0] rounded-sm"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <span className="text-[#7a1212] mb-2 text-xl">♥</span>
@@ -125,10 +125,10 @@ export default function GallerySection({ onNext }: GallerySectionProps) {
 
   return (
     <section className="relative min-h-screen w-full bg-[#7a1212] overflow-hidden font-mono">
-      
+
       {/* Background Title */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.12 }}
           transition={{ duration: 2 }}
@@ -150,8 +150,8 @@ export default function GallerySection({ onNext }: GallerySectionProps) {
           onClick={onNext}
           // เพิ่ม z-index และ translateZ เพื่อยกมิติให้สูงกว่ารูป
           className="pointer-events-auto bg-[#fdfcf0] text-[#7a1212] px-10 py-4 rounded-full font-black uppercase tracking-widest shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-2 border-white/20"
-          style={{ 
-            transform: "translateZ(500px)", 
+          style={{
+            transform: "translateZ(500px)",
             boxShadow: "0 0 50px rgba(0,0,0,0.5)"
           }}
         >
@@ -162,11 +162,11 @@ export default function GallerySection({ onNext }: GallerySectionProps) {
       {/* พื้นที่โปรยรูปภาพ (เลื่อนได้) */}
       <div className="relative w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
         <div className="relative w-full max-w-[1000px] min-h-[1800px] mx-auto py-10">
-          
+
           {myPhotos.map((p, idx) => {
             const style = scatteredStyles[idx % scatteredStyles.length];
             return (
-              <PhotoCard 
+              <PhotoCard
                 key={idx}
                 photoUrl={p}
                 idx={idx}
@@ -175,7 +175,7 @@ export default function GallerySection({ onNext }: GallerySectionProps) {
               />
             );
           })}
-          
+
           {/* เว้นพื้นที่ด้านล่างเพื่อให้เลื่อนมาเจอจุดที่ปุ่มทำงาน */}
           <div className="h-[300px] w-full" />
         </div>
