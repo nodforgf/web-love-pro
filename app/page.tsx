@@ -4,11 +4,14 @@ import LobbySection from '../src/components/LobbySection';
 import AnniversarySection from '../src/components/AnniversarySection';
 import GallerySection from '../src/components/GallerySection';
 import TransitionPage from '../src/components/TransitionPage';
-import GoPlanSection from '../src/components/GoPlanSection'; // เพิ่ม import ตัวใหม่
+import GoPlanSection from '../src/components/GoPlanSection';
+import GiftQuestSection from '../src/components/GiftQuestSection';
+import LetterSection from '../src/components/LetterSection';
+import MusicCassetteSection from '../src/components/MusicCassetteSection'; // 1. Import หน้าเทปเพลงเพิ่ม
 
 export default function Home() {
-  // ควบคุม Step การทำงาน: lobby -> anniversary -> gallery -> transition -> goplan
-  const [currentStep, setCurrentStep] = useState<'lobby' | 'anniversary' | 'gallery' | 'transition' | 'goplan'>('lobby');
+  // 2. เพิ่ม Step 'music' เข้าไปเป็นลำดับสุดท้าย
+  const [currentStep, setCurrentStep] = useState<'lobby' | 'anniversary' | 'gallery' | 'transition' | 'goplan' | 'quest' | 'letter' | 'music'>('lobby');
 
   return (
     <main className="min-h-screen bg-[#7a1212]">
@@ -35,7 +38,23 @@ export default function Home() {
 
       {/* 5. หน้าแผนท่องเที่ยวในอนาคต (GoPlan) */}
       {currentStep === 'goplan' && (
-        <GoPlanSection /> // เรียกใช้คอมโพเนนต์ GoPlan ที่เราสร้างไว้
+        <GoPlanSection onUnlock={() => setCurrentStep('quest')} />
+      )}
+
+      {/* 6. หน้าเกม (Gift Quest) */}
+      {currentStep === 'quest' && (
+        <GiftQuestSection onBack={() => setCurrentStep('goplan')} onFinish={() => setCurrentStep('letter')} />
+      )}
+
+      {/* 7. หน้าจดหมายความในใจ (Letter) */}
+      {currentStep === 'letter' && (
+        // 3. ส่ง prop onNext ไปเพื่อให้กดปิดจดหมายแล้วไปหน้าเพลงต่อ
+        <LetterSection onNext={() => setCurrentStep('music')} />
+      )}
+
+      {/* 8. หน้าตลับเทปเพลง (Music Cassette) */}
+      {currentStep === 'music' && (
+        <MusicCassetteSection />
       )}
 
     </main>
