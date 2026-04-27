@@ -17,30 +17,49 @@ export default function LetterSection({ onNext }: { onNext: () => void }) {
                 <p className="text-[#fdfcf0]/40 text-[9px] tracking-[0.4em] mt-2">FOR YOUR EYES ONLY</p>
             </header>
 
-            {/* Envelope Container - คุมขนาดให้พอดี */}
-            <div className="relative w-full max-w-[450px] h-[300px] mt-20 mb-20">
+           {/* --- Envelope Container (พื้นที่ซอง) --- */}
+            <div className="relative w-full max-w-[450px] h-[300px] mt-20">
 
-                {/* 1. Letter Inside (จดหมายที่อยู่ข้างใน) */}
+                {/* 1. จดหมาย (The Letter) - ปรับขนาดและตัวหนังสือให้เล็กลง */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
                             initial={{ y: 0, opacity: 0 }}
-                            animate={{ y: -240, opacity: 1 }} // ดันจดหมายขึ้นให้สูงขึ้นอีกนิด
+                            animate={{ y: -240, opacity: 1 }} // ปรับความสูงตอนเลื่อนให้พอดีช่อง
                             exit={{ y: 0, opacity: 0 }}
                             transition={{ type: "spring", stiffness: 70, damping: 15 }}
-                            className="absolute left-[5%] w-[90%] bg-[#fdfcf0] p-8 md:p-10 shadow-2xl z-20 border-l-8 border-[#7a1212]/10"
-                            // แก้ตรงนี้: เอา overflowY ออก หรือปรับความสูงให้พอดีกับเนื้อหา
-                            style={{ minHeight: '350px' }}
+                            // --- ปรับขนาดจดหมายตรงนี้ ---
+                            className="absolute left-[10%] w-[80%] bg-[#fdfcf0] p-6 shadow-2xl z-20 border-l-4 border-[#7a1212]/10 rounded-lg"
+                            style={{ 
+                                minHeight: '350px', // กำหนดความสูงขั้นต่ำไว้
+                                height: 'auto',     // สั่งให้ขยายความสูงตามเนื้อหาอัตโนมัติ
+                                overflowY: 'visible', // ยอมให้เนื้อหาทะลุขอบได้ (เพราะเราจะขยายกระดาษตาม)
+                            }}
                         >
-                            <div className="space-y-6 text-[#7a1212]">
-                                <h3 className="text-xl font-black italic border-b border-[#7a1212]/20 pb-4">ถึง... [ชื่อแฟนของนาย]</h3>
-                                <div className="text-sm leading-relaxed space-y-4 font-sans italic">
-                                    <p>ขอบคุณนะที่อยู่ข้างกันมาตลอด เว็บนี้ตั้งใจทำขึ้นมาเพราะอยากรวมเรื่องราวของเราไว้ในที่เดียว...</p>
-                                    <p>ต่อจากนี้ไม่ว่าจะเป็นยังไง ก็อยากให้รู้ว่ารักมากนะบักขี้งอน</p>
+                            <div className="flex flex-col h-full justify-between space-y-4 text-[#7a1212]">
+                                <div className="space-y-4">
+                                    {/* --- ปรับขนาดตัวหนังสือตรงนี้ --- */}
+                                    <h3 className="text-lg font-black italic border-b border-[#7a1212]/20 pb-3">ถึง... [ชื่อแฟน]</h3>
+                                    <div className="text-xs leading-relaxed space-y-3 font-sans italic">
+                                        <p>ขอบคุณนะที่อยู่ข้างกันมาตลอด เว็บนี้ตั้งใจทำขึ้นมาเพราะอยากรวมเรื่องราวของเราไว้ในที่เดียว...</p>
+                                        <p>ต่อจากนี้ไม่ว่าจะเป็นยังไง ก็อยากให้รู้ว่ารักมากนะบักขี้งอน</p>
+                                    </div>
+                                    {/* ส่วน "รักเสมอ" - ปรับ pt และ text */}
+                                    <div className="pt-3 text-right font-black italic text-base border-t border-[#7a1212]/5">
+                                        — รักเสมอ, ณฐ
+                                    </div>
                                 </div>
-                                {/* ส่วน "รักเสมอ" */}
-                                <div className="pt-4 text-right font-black italic text-lg border-t border-[#7a1212]/5">
-                                    — รักเสมอ, ณฐ
+
+                                {/* ปุ่มวาร์ปไปหน้าตลับเทป */}
+                                <div className="pt-6">
+                                    <motion.button 
+                                        whileHover={{ scale: 1.05, backgroundColor: "#5a0d0d" }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={onNext}
+                                        className="w-full py-3 bg-[#7a1212] text-[#fdfcf0] font-black rounded-xl text-[9px] uppercase tracking-[0.2em] shadow-lg transition-colors"
+                                    >
+                                        Read Final Note & Listen to Songs →
+                                    </motion.button>
                                 </div>
                             </div>
                         </motion.div>
@@ -100,11 +119,6 @@ export default function LetterSection({ onNext }: { onNext: () => void }) {
                     )}
                 </AnimatePresence>
             </div>
-
-            {/* Error Fix: ส่วนพลุกระดาษ ถ้าบักณฐยังไม่ได้ลง library ให้ลบ import confetti ออกก่อนนะ */}
-            <footer className="mt-24 opacity-20 text-[#fdfcf0]">
-                <p className="text-[9px] uppercase tracking-[1em]">The End of Chapter 1</p>
-            </footer>
         </section>
     );
 }
